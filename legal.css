@@ -1,0 +1,44 @@
+/* Shared styling for the SMS / Privacy / Terms pages.
+   Tokens: suds-docs/suds-uiux/new-system.md */
+:root {
+  --gray-100: oklch(98.5% 0.000 89.9);
+  --gray-200: oklch(86.2% 0.004 84.3);
+  --gray-500: oklch(52.9% 0.016 67.5);
+  --gray-800: oklch(28.5% 0.014 50.2);
+  --gray-900: oklch(20.3% 0.013 44.5);
+  --primary-100: oklch(96.5% 0.030 86.3);
+  --primary-500: oklch(82.1% 0.168 86.3);
+  --primary-800: oklch(44.5% 0.110 80.3);
+  color-scheme: light;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: var(--gray-100);
+  color: var(--gray-900);
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+.wrap { max-width: 720px; margin: 0 auto; padding: 0 24px; }
+header { padding: 20px 0; border-bottom: 1px solid var(--gray-200); }
+header .wrap { display: flex; align-items: center; justify-content: space-between; }
+.wordmark { font-weight: 700; font-size: 20px; letter-spacing: -0.5px; color: var(--gray-900); text-decoration: none; }
+header nav { display: flex; gap: 20px; }
+header nav a { font-size: 14px; font-weight: 500; color: var(--gray-500); text-decoration: none; }
+header nav a:hover { color: var(--gray-900); }
+main { padding: 48px 0 96px; }
+h1 { font-size: 30px; font-weight: 700; letter-spacing: -1px; }
+.updated { margin-top: 8px; font-size: 13px; color: var(--gray-500); }
+h2 { font-size: 20px; font-weight: 700; letter-spacing: -0.4px; margin: 32px 0 8px; }
+p, li { color: var(--gray-800); font-size: 15px; margin-top: 8px; }
+ul { padding-left: 22px; margin-top: 8px; }
+a { color: var(--primary-800); }
+.note {
+  margin-top: 16px; padding: 14px 16px; border-radius: 12px;
+  background: var(--primary-100); border: 1px solid var(--primary-500);
+  font-size: 14px; color: var(--gray-800);
+}
+footer { border-top: 1px solid var(--gray-200); }
+footer .wrap { padding: 24px; display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; font-size: 12px; color: var(--gray-500); }
+footer a { color: var(--gray-500); font-weight: 500; text-decoration: none; }
