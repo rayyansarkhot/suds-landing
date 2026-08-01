@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Suds — always know what to do with your friends</title>
-<meta name="description" content="Suds is a map of the activities your friends actually did around you. Post what you do, see what they do — and never run out of plans.">
+<title>Suds: always know what to do with your friends</title>
+<meta name="description" content="Suds is a map of the activities your friends actually did around you. Post what you do, see what they do, and never run out of plans.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -62,8 +62,14 @@
   .wrap { max-width: 1020px; margin: 0 auto; padding: 0 var(--spacing-24); }
   a:focus-visible { outline: var(--border-width-2) solid var(--primary-800); outline-offset: 3px; border-radius: var(--radius-4, 4px); }
 
-  /* ── Header ─────────────────────────────── */
-  header .bar { display: flex; align-items: center; justify-content: space-between; height: var(--spacing-64); }
+  /* Header: floating pill */
+  header { position: sticky; top: 0; z-index: 10; padding-top: var(--spacing-12); }
+  header .bar {
+    display: flex; align-items: center; justify-content: space-between;
+    height: 56px; padding: 0 var(--spacing-24);
+    background: #FFFFFF; border: var(--border-width-1) solid var(--gray-200);
+    border-radius: var(--radius-full); box-shadow: var(--shadow-3);
+  }
   .wordmark {
     font-weight: var(--font-weight-700); font-size: var(--font-size-20);
     letter-spacing: -0.5px; text-decoration: none; color: var(--gray-900);
@@ -72,7 +78,7 @@
   header nav a { font-size: var(--font-size-14); font-weight: var(--font-weight-500); color: var(--gray-500); text-decoration: none; }
   header nav a:hover { color: var(--gray-900); }
 
-  /* ── Hero ───────────────────────────────── */
+  /* Hero */
   .hero { display: grid; grid-template-columns: 1fr 0.85fr; gap: var(--spacing-48); align-items: center; padding: var(--spacing-64) 0 var(--spacing-96); }
   .hero h1 {
     font-weight: var(--font-weight-700); font-size: clamp(var(--font-size-36), 5vw, var(--font-size-48));
@@ -93,7 +99,7 @@
   .cta:active { opacity: var(--opacity-pressed); }
   .cta-note { display: block; margin-top: var(--spacing-12); font-size: var(--font-size-12); color: var(--gray-500); }
 
-  /* Phone frame — device illustration; bezel radii follow hardware, not the radius scale */
+  /* Phone frame: device illustration; bezel radii follow hardware, not the radius scale */
   .phone {
     width: 100%; max-width: 310px; aspect-ratio: 9 / 19;
     border-radius: 46px; border: 9px solid var(--gray-900);
@@ -114,7 +120,7 @@
   }
   .hero .shot { justify-self: center; transform: rotate(4deg); }
 
-  /* ── Feature rows ───────────────────────── */
+  /* Feature rows */
   .rows { display: flex; flex-direction: column; gap: var(--spacing-96); padding: var(--spacing-8) 0 var(--spacing-96); }
   .row { display: grid; grid-template-columns: 0.7fr 1fr; gap: var(--spacing-64); align-items: center; }
   .row .shot { justify-self: center; }
@@ -124,13 +130,13 @@
   .row p { margin-top: var(--spacing-12); color: var(--gray-500); font-size: var(--font-size-16); max-width: 46ch; }
   .row .text { max-width: 480px; }
 
-  /* ── Closing ────────────────────────────── */
+  /* Closing */
   .close { text-align: center; padding: var(--spacing-24) 0 var(--spacing-96); }
   .close h2 { font-weight: var(--font-weight-700); font-size: clamp(var(--font-size-30), 4vw, var(--font-size-36)); letter-spacing: -1.5px; }
   .close p { margin-top: var(--spacing-8); color: var(--gray-500); font-size: var(--font-size-16); }
   .close .cta { margin-top: var(--spacing-24); }
 
-  /* ── Footer ─────────────────────────────── */
+  /* Footer */
   footer { border-top: var(--border-width-1) solid var(--gray-200); }
   .foot { padding: var(--spacing-32) 0 var(--spacing-32); display: flex; justify-content: space-between; gap: var(--spacing-24); flex-wrap: wrap; font-size: var(--font-size-12); color: var(--gray-500); }
   .foot nav { display: flex; gap: var(--spacing-16); }
@@ -151,13 +157,15 @@
 <body>
 
 <header>
-  <div class="wrap bar">
-    <a class="wordmark" href="/">Suds</a>
-    <nav>
-      <a href="sms.html">SMS</a>
-      <a href="privacy.html">Privacy</a>
-      <a href="mailto:rayyanrsarkhot@gmail.com">Contact</a>
-    </nav>
+  <div class="wrap">
+    <div class="bar">
+      <a class="wordmark" href="/">Suds</a>
+      <nav>
+        <a href="sms.html">SMS</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="mailto:rayyanrsarkhot@gmail.com">Contact</a>
+      </nav>
+    </div>
   </div>
 </header>
 
@@ -206,7 +214,7 @@
         <h2>See what your friends did.</h2>
         <p>
           Your friends log their outings the same way, and the result is endless
-          activities around your area — vouched for by people you trust, not
+          activities around your area, vouched for by people you trust, not
           reviews from strangers.
         </p>
       </div>
