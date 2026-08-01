@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Suds — always know what to do with your friends</title>
+<meta name="description" content="Suds is a map of the activities your friends actually did around you. Post what you do, see what they do — and never run out of plans.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Overpass:wght@900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #FAFAFA;
+    --ink: #1C1512;
+    --brown: #734B00;
+    --mud: #726A62;
+    --line: #D3D1CF;
+    --road: #F4BB00;
+    --cream: #FCF3DD;
+    --map: #EDE7DC;
+    color-scheme: light;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1020px; margin: 0 auto; padding: 0 24px; }
+  a:focus-visible { outline: 2px solid var(--brown); outline-offset: 3px; border-radius: 2px; }
+
+  /* ── Header ─────────────────────────────── */
+  header .bar { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+  .wordmark {
+    font-family: 'Overpass', 'Inter', sans-serif; font-weight: 900; font-size: 22px;
+    letter-spacing: -0.5px; text-decoration: none; color: var(--ink);
+  }
+  header nav { display: flex; gap: 24px; }
+  header nav a { font-size: 13.5px; font-weight: 500; color: var(--mud); text-decoration: none; }
+  header nav a:hover { color: var(--ink); }
+
+  /* ── Hero ───────────────────────────────── */
+  .hero { display: grid; grid-template-columns: 1fr 0.85fr; gap: 48px; align-items: center; padding: 64px 0 88px; }
+  .status {
+    display: inline-block; font-size: 12px; font-weight: 600; letter-spacing: 0.4px;
+    color: var(--brown); background: var(--cream); border-radius: 999px; padding: 6px 13px;
+  }
+  .hero h1 {
+    margin-top: 18px;
+    font-weight: 800; font-size: clamp(36px, 5vw, 54px);
+    line-height: 1.06; letter-spacing: -2px; text-wrap: balance;
+  }
+  .hero h1 .u {
+    border-bottom: 4px dashed var(--road);
+    padding-bottom: 1px;
+  }
+  .hero .sub { margin-top: 20px; font-size: 17px; color: var(--mud); max-width: 42ch; }
+  .cta {
+    display: inline-block; margin-top: 28px;
+    background: var(--ink); color: #fff; text-decoration: none;
+    font-size: 15px; font-weight: 600;
+    padding: 14px 26px; border-radius: 12px;
+  }
+  .cta:hover { background: #302824; }
+  .cta-note { display: block; margin-top: 12px; font-size: 12.5px; color: var(--mud); }
+
+  /* Phone frame (placeholder until real screenshots) */
+  .phone {
+    width: 100%; max-width: 310px; aspect-ratio: 9 / 19;
+    border-radius: 46px; border: 9px solid var(--ink);
+    background: var(--map); position: relative; overflow: hidden;
+    box-shadow: 0 24px 60px rgba(28,21,18,0.22);
+  }
+  .phone::before {
+    content: ''; position: absolute; top: 12px; left: 50%; transform: translateX(-50%);
+    width: 84px; height: 24px; border-radius: 999px; background: var(--ink);
+  }
+  .phone img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .phone .ph {
+    position: absolute; inset: 14px; border: 2px dashed var(--line); border-radius: 32px;
+    display: flex; align-items: center; justify-content: center; text-align: center;
+    color: var(--mud); font-size: 13px; font-weight: 500; padding: 20px;
+  }
+  .hero .shot { justify-self: center; transform: rotate(4deg); }
+
+  /* ── Feature rows ───────────────────────── */
+  .rows { display: flex; flex-direction: column; gap: 96px; padding: 8px 0 96px; }
+  .row { display: grid; grid-template-columns: 0.7fr 1fr; gap: 64px; align-items: center; }
+  .row .shot { justify-self: center; }
+  .row .phone { max-width: 250px; box-shadow: 0 16px 44px rgba(28,21,18,0.16); }
+  .row:nth-child(even) .shot { order: 2; }
+  .row h2 { font-weight: 700; font-size: clamp(24px, 3vw, 30px); letter-spacing: -1px; line-height: 1.15; text-wrap: balance; }
+  .row p { margin-top: 12px; color: var(--mud); font-size: 15.5px; max-width: 46ch; }
+  .row .text { max-width: 480px; }
+
+  /* ── Closing ────────────────────────────── */
+  .close { text-align: center; padding: 24px 0 104px; }
+  .close h2 { font-weight: 800; font-size: clamp(28px, 4vw, 40px); letter-spacing: -1.5px; }
+  .close p { margin-top: 10px; color: var(--mud); font-size: 15.5px; }
+  .close .cta { margin-top: 24px; }
+
+  /* ── Footer ─────────────────────────────── */
+  footer { border-top: 1px solid var(--line); }
+  .foot { padding: 30px 0 38px; display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap; font-size: 13px; color: var(--mud); }
+  .foot nav { display: flex; gap: 20px; }
+  .foot a { color: var(--mud); font-weight: 500; text-decoration: none; }
+  .foot a:hover { color: var(--ink); }
+
+  @media (max-width: 780px) {
+    .hero { grid-template-columns: 1fr; padding: 40px 0 64px; gap: 44px; }
+    .hero .shot { transform: rotate(3deg); }
+    .rows { gap: 72px; }
+    .row { grid-template-columns: 1fr; gap: 32px; }
+    .row:nth-child(even) .shot { order: 0; }
+    .row .text { max-width: none; }
+    header nav { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap bar">
+    <a class="wordmark" href="/">Suds</a>
+    <nav>
+      <a href="sms.html">SMS</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="mailto:rayyanrsarkhot@gmail.com">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="wrap hero">
+    <div>
+      <span class="status">Pre-launch · New Jersey</span>
+      <h1>Always know <span class="u">what to do</span> with your friends.</h1>
+      <p class="sub">
+        Friends, a free night, and no plan — it happens all the time.
+        Suds is a map of what your friends actually did around you, so the plan is already there.
+      </p>
+      <a class="cta" href="mailto:rayyanrsarkhot@gmail.com?subject=Suds%20invite">Get an invite</a>
+      <span class="cta-note">iPhone first. Launching with friends &amp; family.</span>
+    </div>
+    <div class="shot">
+      <div class="phone" aria-label="Suds map screen">
+        <div class="ph">map screenshot<br>(pins near you)</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap rows" id="how">
+    <div class="row">
+      <div class="shot">
+        <div class="phone" aria-label="Suds log screen">
+          <div class="ph">log screenshot<br>(camera capture)</div>
+        </div>
+      </div>
+      <div class="text">
+        <h2>Post what you did.</h2>
+        <p>
+          A log is captured, not composed — camera only, location locked to where
+          you're standing, and one tap to say whether you'd go back. If it's on
+          the map, someone was really there.
+        </p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="shot">
+        <div class="phone" aria-label="Suds friends feed screen">
+          <div class="ph">feed screenshot<br>(a friend's post)</div>
+        </div>
+      </div>
+      <div class="text">
+        <h2>See what your friends did.</h2>
+        <p>
+          Your friends log their outings the same way, and the result is endless
+          activities around your area — vouched for by people you trust, not
+          reviews from strangers.
+        </p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="shot">
+        <div class="phone" aria-label="Suds Move chat screen">
+          <div class="ph">Move screenshot<br>(concierge chat)</div>
+        </div>
+      </div>
+      <div class="text">
+        <h2>Stuck? Ask Move.</h2>
+        <p>
+          Tell the concierge who's out and what the night feels like. It only
+          suggests places from your circle's real logs — never somewhere nobody's
+          vouched for.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap close">
+    <h2>Never run out of plans.</h2>
+    <p>Launching soon in New Jersey.</p>
+    <a class="cta" href="mailto:rayyanrsarkhot@gmail.com?subject=Suds%20invite">Get an invite</a>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <div>© 2026 Suds · Made in New Jersey</div>
+    <nav>
+      <a href="sms.html">SMS program</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+      <a href="mailto:rayyanrsarkhot@gmail.com">Contact</a>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
