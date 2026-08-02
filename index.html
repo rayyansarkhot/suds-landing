@@ -294,7 +294,15 @@
   /* Closing */
   .close2 { text-align: center; padding: var(--spacing-24) 0 var(--spacing-128); }
   .close2 h2 { font-weight: var(--font-weight-700); font-size: clamp(var(--font-size-30), 4.4vw, var(--font-size-48)); letter-spacing: -2px; }
-  .close2 .cta { margin-top: var(--spacing-24); }
+  .close2 .cta {
+    margin-top: var(--spacing-32);
+    background: var(--primary-500); color: var(--gray-900);
+    padding: var(--spacing-16) var(--spacing-32);
+    font-size: var(--font-size-16);
+    box-shadow: var(--shadow-3);
+  }
+  .close2 .cta:hover { background: var(--primary-500); filter: brightness(1.06); transform: translateY(-2px); box-shadow: var(--shadow-4); }
+  .close2 .cta:active { filter: none; }
 
   /* Footer */
   footer { border-top: var(--border-width-1) solid var(--gray-200); }

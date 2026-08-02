@@ -47,8 +47,8 @@ p, li { color: var(--gray-800); font-size: 15px; margin-top: 8px; }
 ul { padding-left: 22px; margin-top: 8px; }
 a { color: var(--primary-800); }
 .note {
-  margin-top: 16px; padding: 14px 16px; border-radius: 12px;
-  background: var(--primary-100); border: 1px solid var(--primary-500);
+  margin-top: 24px; padding: 4px 0 4px 16px;
+  border-left: 3px solid var(--primary-500);
   font-size: 14px; color: var(--gray-800);
 }
 footer { border-top: 1px solid var(--gray-200); }
