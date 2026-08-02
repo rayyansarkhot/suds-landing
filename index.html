@@ -298,7 +298,12 @@
 
   /* Footer */
   footer { border-top: var(--border-width-1) solid var(--gray-200); }
-  .foot { padding: var(--spacing-32) 0 var(--spacing-32); display: flex; justify-content: space-between; gap: var(--spacing-24); flex-wrap: wrap; font-size: var(--font-size-12); color: var(--gray-500); }
+  .foot {
+    max-width: 1280px; margin: 0 auto; padding: var(--spacing-32) var(--spacing-48);
+    display: flex; justify-content: space-between; align-items: center;
+    gap: var(--spacing-24); flex-wrap: nowrap;
+    font-size: var(--font-size-12); color: var(--gray-500);
+  }
   .foot nav { display: flex; gap: var(--spacing-16); }
   .foot a { color: var(--gray-500); font-weight: var(--font-weight-500); text-decoration: none; }
   .foot a:hover { color: var(--gray-900); }
@@ -369,7 +374,7 @@
     header .bar { padding: 0 var(--spacing-16); }
     header nav { gap: var(--spacing-16); }
     header nav a { font-size: 13px; }
-    .foot { flex-direction: column; align-items: center; text-align: center; gap: var(--spacing-12); }
+    .foot { flex-direction: column; align-items: center; text-align: center; gap: var(--spacing-12); padding: var(--spacing-24) var(--spacing-16); }
   }
 </style>
 </head>
@@ -570,7 +575,7 @@
 </main>
 
 <footer>
-  <div class="wrap foot">
+  <div class="foot">
     <div>© 2026 Suds · Made in New Jersey</div>
     <nav>
       <a href="sms.html">SMS program</a>
