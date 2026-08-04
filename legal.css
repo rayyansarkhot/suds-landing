@@ -39,7 +39,7 @@ header nav a:hover { color: var(--gray-900); }
   header nav { gap: 14px; }
   header nav a { font-size: 13px; }
 }
-main { padding: 88px 0 96px; }
+main.wrap { padding-top: 120px; padding-bottom: 96px; }
 h1 { font-size: 30px; font-weight: 700; letter-spacing: -1px; }
 .updated { margin-top: 8px; font-size: 13px; color: var(--gray-500); }
 h2 { font-size: 20px; font-weight: 700; letter-spacing: -0.4px; margin: 32px 0 8px; }
