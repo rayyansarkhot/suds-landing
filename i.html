@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>You're invited to Suds</title>
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* Tokens: suds-docs/suds-uiux/system.md, same subset index.html uses */
+  :root {
+    --font-size-13: 13px; --font-size-14: 14px; --font-size-20: 20px; --font-size-24: 24px;
+    --font-weight-500: 500; --font-weight-600: 600; --font-weight-700: 700;
+    --gray-100: oklch(98.5% 0.000 89.9);
+    --gray-200: oklch(86.2% 0.004 84.3);
+    --gray-500: oklch(52.9% 0.016 67.5);
+    --gray-800: oklch(28.5% 0.014 50.2);
+    --gray-900: oklch(20.3% 0.013 44.5);
+    --primary-500: oklch(82.1% 0.168 86.3);
+    --spacing-8: 8px; --spacing-12: 12px; --spacing-16: 16px; --spacing-24: 24px; --spacing-32: 32px;
+    --radius-12: 12px; --radius-24: 24px; --radius-full: 9999px;
+    --border-width-1: 1px;
+    --shadow-3: 0 3px 6px rgba(0,0,0,0.08), 0 10px 20px rgba(0,0,0,0.10);
+    color-scheme: light;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--gray-100); color: var(--gray-900);
+    font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    min-height: 100vh; display: flex; flex-direction: column; align-items: center;
+    padding: var(--spacing-24);
+  }
+  header { width: 100%; max-width: 420px; padding: var(--spacing-16) 0 var(--spacing-32); }
+  .wordmark { font-weight: var(--font-weight-700); font-size: var(--font-size-20); letter-spacing: -0.5px; text-decoration: none; color: var(--gray-900); }
+  main { width: 100%; max-width: 380px; flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding-bottom: var(--spacing-32); }
+  .avatars { display: flex; margin-bottom: var(--spacing-16); }
+  .avatar { width: 56px; height: 56px; border-radius: 50%; background: var(--gray-200); border: 3px solid var(--gray-100); background-size: cover; background-position: center; }
+  .avatar.fallback { display: flex; align-items: center; justify-content: center; background: var(--gray-800); color: var(--primary-500); font-weight: var(--font-weight-700); font-size: var(--font-size-20); }
+  h1 { font-size: var(--font-size-24); font-weight: var(--font-weight-700); letter-spacing: -0.4px; line-height: 1.3; margin-bottom: var(--spacing-12); }
+  h1 b { color: var(--gray-900); }
+  .sub { font-size: var(--font-size-14); color: var(--gray-500); line-height: 1.5; max-width: 30ch; margin-bottom: var(--spacing-32); }
+  .cta {
+    display: inline-block; background: var(--gray-900); color: var(--gray-100); text-decoration: none;
+    font-size: var(--font-size-14); font-weight: var(--font-weight-600);
+    padding: var(--spacing-12) var(--spacing-24); border-radius: var(--radius-12);
+    box-shadow: var(--shadow-3);
+  }
+  .note { font-size: var(--font-size-13); color: var(--gray-500); margin-top: var(--spacing-16); }
+  .skeleton { opacity: 0.5; }
+</style>
+</head>
+<body>
+
+<header><a class="wordmark" href="/">Suds</a></header>
+
+<main id="main" class="skeleton">
+  <div class="avatars"><div class="avatar fallback">?</div></div>
+  <h1>Loading your invite&hellip;</h1>
+  <p class="sub">One moment.</p>
+</main>
+
+<script>
+  var API = 'https://5gdnvrz031.execute-api.us-east-1.amazonaws.com';
+  // TODO: swap for the real App Store listing once Suds is publicly listed.
+  var DOWNLOAD_URL = '#';
+
+  function initials(name) {
+    return (name || '').split(' ').map(function (p) { return p[0]; }).join('').slice(0, 2).toUpperCase();
+  }
+
+  // Built via DOM APIs rather than innerHTML string concatenation — avatarUrl
+  // used to be spliced into a style="..." attribute via JSON.stringify(), and
+  // the JSON-quoted string's own double quotes closed the HTML attribute
+  // early, mangling the whole element (visible as raw url(...) fragments
+  // turning into bogus attributes). name (the inviter's own display name,
+  // user-controlled at signup) was also being concatenated straight into
+  // innerHTML unescaped — a stored-XSS hole for anyone who set their name to
+  // include markup. textContent/style.backgroundImage sidestep both.
+  function render(found, name, avatarUrl) {
+    var main = document.getElementById('main');
+    main.classList.remove('skeleton');
+    main.innerHTML = '';
+
+    var avatars = document.createElement('div');
+    avatars.className = 'avatars';
+    var avatar = document.createElement('div');
+    if (avatarUrl) {
+      avatar.className = 'avatar';
+      avatar.style.backgroundImage = 'url(' + JSON.stringify(avatarUrl) + ')';
+    } else {
+      avatar.className = 'avatar fallback';
+      avatar.textContent = found ? initials(name) : '✗';
+    }
+    avatars.appendChild(avatar);
+    main.appendChild(avatars);
+
+    var h1 = document.createElement('h1');
+    var sub = document.createElement('p');
+    sub.className = 'sub';
+    if (found) {
+      var b = document.createElement('b');
+      b.textContent = name;
+      h1.appendChild(b);
+      h1.appendChild(document.createTextNode(' invited you to Suds.'));
+      sub.textContent = 'Suds is invite-only. A friend has to bring you in. Download the app to accept.';
+    } else {
+      h1.textContent = 'This invite isn’t valid.';
+      sub.textContent = 'Invite links only last a day. Ask whoever sent it for a new one, or download Suds and see if you already know someone in.';
+    }
+    main.appendChild(h1);
+    main.appendChild(sub);
+
+    var cta = document.createElement('a');
+    cta.className = 'cta';
+    cta.href = DOWNLOAD_URL;
+    cta.textContent = 'Download the app';
+    main.appendChild(cta);
+
+    var note = document.createElement('p');
+    note.className = 'note';
+    note.textContent = 'Opens the App Store';
+    main.appendChild(note);
+  }
+
+  var code = new URLSearchParams(location.search).get('code');
+  if (!code) {
+    render(false, null, null);
+  } else {
+    fetch(API + '/auth/invite/lookup?code=' + encodeURIComponent(code))
+      .then(function (res) { return res.json(); })
+      .then(function (data) { render(!!data.found, data.inviter_name, data.inviter_avatar_url); })
+      .catch(function () { render(false, null, null); });
+  }
+</script>
+
+</body>
+</html>
