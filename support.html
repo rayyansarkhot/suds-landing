@@ -9,6 +9,26 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="legal.css">
+<style>
+  form { margin-top: 12px; display: flex; flex-direction: column; gap: 12px; max-width: 480px; }
+  label { font-size: 13px; font-weight: 600; color: var(--gray-800); }
+  input, textarea {
+    margin-top: 4px; width: 100%; font: inherit; font-size: 15px;
+    padding: 10px 12px; border: 1px solid var(--gray-200); border-radius: 8px;
+    background: #FFFFFF; color: var(--gray-900);
+  }
+  textarea { resize: vertical; min-height: 100px; }
+  input:focus, textarea:focus { outline: 2px solid var(--primary-500); outline-offset: 1px; }
+  button {
+    align-self: flex-start; font: inherit; font-size: 14px; font-weight: 600;
+    background: var(--gray-900); color: var(--gray-100); border: none;
+    padding: 10px 20px; border-radius: 999px; cursor: pointer;
+  }
+  button:disabled { opacity: 0.6; cursor: default; }
+  #form-status { font-size: 14px; margin-top: 4px; }
+  #form-status.error { color: var(--danger, #B3362C); }
+  #form-status.success { color: var(--gray-800); }
+</style>
 </head>
 <body>
 
@@ -59,8 +79,69 @@
   </p>
 
   <h2>Contact</h2>
-  <p><a href="mailto:rayyanrsarkhot@gmail.com">rayyanrsarkhot@gmail.com</a></p>
+  <p>
+    Or send us a message directly and we'll reply by email.
+  </p>
+
+  <form id="support-form">
+    <div>
+      <label for="name">Name</label>
+      <input id="name" name="name" type="text" maxlength="200" required>
+    </div>
+    <div>
+      <label for="email">Email</label>
+      <input id="email" name="email" type="email" maxlength="320" required>
+    </div>
+    <div>
+      <label for="message">How can we help?</label>
+      <textarea id="message" name="message" maxlength="4000" required></textarea>
+    </div>
+    <button type="submit">Send</button>
+    <p id="form-status" role="status"></p>
+  </form>
 </main>
+
+<script>
+  (function () {
+    var API = 'https://5gdnvrz031.execute-api.us-east-1.amazonaws.com';
+    var form = document.getElementById('support-form');
+    var status = document.getElementById('form-status');
+    var button = form.querySelector('button');
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      status.className = '';
+      status.textContent = '';
+      button.disabled = true;
+
+      fetch(API + '/support', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({
+          name: form.name.value,
+          email: form.email.value,
+          message: form.message.value,
+        }),
+      })
+        .then(function (res) {
+          if (!res.ok) throw new Error('request failed');
+          return res.json();
+        })
+        .then(function () {
+          status.className = 'success';
+          status.textContent = "Thanks — we'll get back to you by email.";
+          form.reset();
+        })
+        .catch(function () {
+          status.className = 'error';
+          status.textContent = 'Something went wrong. Please email rayyanrsarkhot@gmail.com instead.';
+        })
+        .finally(function () {
+          button.disabled = false;
+        });
+    });
+  })();
+</script>
 
 <footer>
   <div class="wrap">
