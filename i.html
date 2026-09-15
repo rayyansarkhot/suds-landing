@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>You're invited to Suds</title>
+<title>You're invited to Elsewhere</title>
 <meta name="robots" content="noindex">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -55,7 +55,7 @@
 </head>
 <body>
 
-<header><a class="wordmark" href="/">Suds</a></header>
+<header><a class="wordmark" href="/">Elsewhere</a></header>
 
 <main id="main" class="skeleton">
   <div class="avatars"><div class="avatar fallback">?</div></div>
@@ -65,8 +65,7 @@
 
 <script>
   var API = 'https://5gdnvrz031.execute-api.us-east-1.amazonaws.com';
-  // TODO: swap for the real App Store listing once Suds is publicly listed.
-  var DOWNLOAD_URL = '#';
+  var DOWNLOAD_URL = 'https://apps.apple.com/app/id6803155261';
 
   function initials(name) {
     return (name || '').split(' ').map(function (p) { return p[0]; }).join('').slice(0, 2).toUpperCase();
@@ -105,11 +104,11 @@
       var b = document.createElement('b');
       b.textContent = name;
       h1.appendChild(b);
-      h1.appendChild(document.createTextNode(' invited you to Suds.'));
-      sub.textContent = 'Suds is invite-only. A friend has to bring you in. Download the app to accept.';
+      h1.appendChild(document.createTextNode(' invited you to Elsewhere.'));
+      sub.textContent = 'Elsewhere is invite-only. A friend has to bring you in. Download the app to accept.';
     } else {
       h1.textContent = 'This invite isn’t valid.';
-      sub.textContent = 'Invite links only last a day. Ask whoever sent it for a new one, or download Suds and see if you already know someone in.';
+      sub.textContent = 'Invite links only last a day. Ask whoever sent it for a new one, or download Elsewhere and see if you already know someone in.';
     }
     main.appendChild(h1);
     main.appendChild(sub);
