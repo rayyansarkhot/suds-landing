@@ -177,7 +177,7 @@
     dim.id = 'invite-dim';
     dim.innerHTML = '<form class="dlg" role="dialog" aria-modal="true" aria-labelledby="inv-h" novalidate>' +
       '<h2 id="inv-h">Request an invite</h2>' +
-      '<p>Elsewhere is invite-only for now. Leave your number and we\'ll text you when your invite is ready.</p>' +
+      '<p>Elsewhere is invite-only for now. Enter your number and we\'ll text you your invite.</p>' +
       '<div class="field"><label for="inv-phone">Phone number</label><div class="in" id="inv-box"><span class="cc">+1</span>' +
       '<input id="inv-phone" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="(201) 555-0148"></div><span class="errt" id="inv-err" hidden>Enter a 10-digit US number.</span></div>' +
       '<button type="submit" class="btn btn-y" id="inv-submit">Request invite</button>' +
@@ -206,7 +206,7 @@
           if (r.status === 400) { btn.disabled = false; btn.textContent = 'Request invite'; return bad(); }
           if (!r.ok) throw new Error('failed');
           dim.querySelector('form').innerHTML = '<div class="done-ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>' +
-            '<h2 class="center">Request received</h2><p class="center">We\'ll text ' + esc(formatPhone(digits)) + ' when your invite is ready.</p>' +
+            '<h2 class="center">Request received</h2><p class="center">We\'re texting your invite to ' + esc(formatPhone(digits)) + '.</p>' +
             '<button type="button" class="btn btn-o" id="inv-close">Keep browsing</button>';
           document.getElementById('inv-close').addEventListener('click', closeDialog);
         })
